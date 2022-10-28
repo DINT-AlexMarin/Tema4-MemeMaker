@@ -5,13 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MemeMaker"
         mc:Ignorable="d"
-        Title="MemeMaker"
-        Height="750"
-        Width="730"
-        MinHeight="750"
-        MinWidth="730"
-        Icon="smile.ico">
+        Title="MemeMaker" Height="750" Width="730" MinHeight="750" MinWidth="730" Icon="smile.ico">
     <Window.Resources>
+        <local:ConvertidorBorde x:Key="conversor"></local:ConvertidorBorde>
         <Style TargetType="TextBlock"
                x:Key="etiquetaCampo">
             <Setter Property="Margin"
@@ -22,7 +18,7 @@
             <Setter Property="Margin"
                     Value="0,10,20,0"></Setter>
         </Style>
-        
+
         <Style TargetType="TextBlock"
                x:Key="textoMeme">
             <Setter Property="Foreground"
@@ -45,7 +41,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        
+
         <Style TargetType="Slider">
             <Setter Property="Minimum"
                     Value="100"></Setter>
@@ -121,13 +117,16 @@
             </Grid>
             <Border Background="#FFF3D2D2"
                     BorderBrush="Black"
+                    BorderThickness="{Binding ElementName=bordeCheckBox,Path=IsChecked,Converter={StaticResource conversor}}"
                     Margin="10">
                 <Grid>
-                    <Image Stretch="Fill" />
+                    <Image
+                        Stretch="Fill" Source="{Binding ElementName=imagenTextBox, Path=Text}" 
+                        Height="{Binding ElementName=altoSlider, Path=Value}" Width="{Binding ElementName=anchoSlider, Path=Value}"/>
+                    <TextBlock Style="{StaticResource textoMeme}" 
+                               VerticalAlignment="Top" Text="{Binding ElementName=superiorTextBox,Path=Text,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                     <TextBlock Style="{StaticResource textoMeme}"
-                               VerticalAlignment="Top"></TextBlock>
-                    <TextBlock Style="{StaticResource textoMeme}"
-                               VerticalAlignment="Bottom"></TextBlock>
+                               VerticalAlignment="Bottom" Text="{Binding ElementName=inferiorTextBox,Path=Text,UpdateSourceTrigger=PropertyChanged}"></TextBlock>
                 </Grid>
             </Border>
         </StackPanel>
